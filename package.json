@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Kingdom management system",
   "main": "dist/index.js",
-  "packageManager": "yarn@4.7.0",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "yarn node --require ts-node/register src/index.ts",
@@ -39,5 +38,6 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
-  }
+  },
+  "license": "MIT"
 }
