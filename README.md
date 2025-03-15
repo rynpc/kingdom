@@ -30,11 +30,36 @@ cd kingdom
 yarn install
 ```
 
+### Setup
+
+1. Clone the repository
+2. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Build the project:
+   ```bash
+   npm run build
+   ```
+5. Start the server:
+   ```bash
+   npm start
+   ```
+
 ### Development
 
 Run the development server with hot reload:
 ```bash
 yarn dev
+```
+
+To run in development mode:
+```bash
+npm run dev
 ```
 
 ### Testing
