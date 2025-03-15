@@ -28,3 +28,9 @@ yarn-error.log*
 # Testing
 coverage/
 .nyc_output/
+
+# Yarn specific files (since we're using npm)
+.pnp.*
+.yarn/
+.yarnrc.yml
+yarn.lock
