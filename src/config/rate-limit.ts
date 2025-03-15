@@ -1,4 +1,4 @@
-import { Options, RateLimitRequestHandler } from 'express-rate-limit';
+import { Options } from 'express-rate-limit';
 
 export const rateLimit: Partial<Options> = {
   windowMs: 15 * 60 * 1000, // 15 minutes

@@ -124,7 +124,7 @@ app.post('/api/test', [
 });
 
 // Error handling middleware
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, req: express.Request, res: express.Response) => {
   logger.error('Unhandled error:', { error: err.message, stack: err.stack });
   res.status(500).json({ error: 'Internal server error' });
 });
