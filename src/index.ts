@@ -116,6 +116,8 @@ app.use(express.json({
 }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+const injectionPattern = /('%27)|(')|(--)|(%23)|(#)|(%3B)|(;)|(%2F)|(\/\*)|(DROP\s+TABLE)|(%22)|(")|(SELECT\s+FROM)|(%3D)|(=)|(%7C)|(\|)/;
+
 // Test endpoint with validation
 app.post('/api/test', [
   body('message')
@@ -124,12 +126,8 @@ app.post('/api/test', [
     .trim()
     .notEmpty().withMessage('Message is required')
     .custom((value) => {
-      // Check for HTML/script tags
-      if (/<[^>]*>/.test(value)) {
-        throw new Error('HTML tags are not allowed');
-      }
-      // Check for SQL injection attempts
-      if (/(\%27)|(\')|(\-\-)|(\%23)|(#)|(\%3B)|(;)|(\%2F)|(\/\*)|(DROP\s+TABLE)|(\%22)|(\")|(SELECT\s+FROM)|(\%3D)|(=)|(\%7C)|(\|)/.test(value)) {
+      // Check for injection attempts and malicious content
+      if (injectionPattern.test(value)) {
         throw new Error('Invalid characters detected');
       }
       return true;
@@ -145,7 +143,7 @@ app.post('/api/test', [
   try {
     const message = req.body.message;
     // Double check for malicious content
-    if (/<[^>]*>/.test(message) || /(\%27)|(\')|(\-\-)|(\%23)|(#)|(\%3B)|(;)|(\%2F)|(\/\*)|(DROP\s+TABLE)|(\%22)|(\")|(SELECT\s+FROM)|(\%3D)|(=)|(\%7C)|(\|)/.test(message)) {
+    if (injectionPattern.test(message)) {
       return res.status(400).json({ error: 'Invalid characters detected' });
     }
     logger.info('Test endpoint called:', { message });
@@ -167,13 +165,12 @@ app.all('/api/test', (req, res) => {
 });
 
 // Error handling middleware - must be last
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   logger.error('Error occurred:', { error: err.message });
-  
   if (err.message === 'Invalid JSON') {
     return res.status(400).json({ error: 'Invalid JSON' });
   }
-  
   return res.status(500).json({ error: 'Internal server error' });
 });
 
