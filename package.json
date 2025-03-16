@@ -8,7 +8,8 @@
     "dev": "yarn node --require ts-node/register src/index.ts",
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,7 +19,10 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "rotating-file-stream": "^3.2.1",
-    "winston": "^3.11.0"
+    "sanitize-html": "^2.14.0",
+    "validator": "^13.12.0",
+    "winston": "^3.11.0",
+    "xss": "^1.0.15"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -27,7 +31,9 @@
     "@types/helmet": "^4.0.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.5",
+    "@types/sanitize-html": "^2",
     "@types/supertest": "^6.0.2",
+    "@types/validator": "^13",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
